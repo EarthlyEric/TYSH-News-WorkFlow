@@ -1,0 +1,41 @@
+$(document).ready(function() {
+    var full_resource_folder = g_news_unique_id + "/" + g_resource_folder;
+    var full_attched_folder = g_root_path + "resources/" + full_resource_folder + "/attached/";
+
+    g_attached_files = $.parseJSON(g_attached_file_json_data);
+
+    //- 建立附件連結列表
+    var separate_list = $("#separate-list");
+
+    for (var i = 0; i < g_attached_files.length; i++) {
+
+        var attach_file_info_array = g_attached_files[i];
+
+        if (attach_file_info_array == null || attach_file_info_array.length < 3)
+            continue;
+
+        var file_name = unescape(attach_file_info_array[2]);
+
+        var new_li = "<div id='attach-list' style='padding-left:5px'>";
+        new_li += "<div id='attach' style='float:left;width:16px;height:16px;'></div>";
+        new_li += "<div style='float:left'><span>【<a href='" + full_attched_folder + file_name + "'  target='_blank'>" + file_name + "</a>】 </span></div>";
+        new_li += "</div>";
+
+        separate_list.append(new_li);
+    }
+
+    if (g_attached_files.length <= 0)
+        $('#trAttachment').hide();
+    else
+        $('#trAttachment').show();
+
+    $(".contentArea").css("min-height", "90%");
+    $(".contentArea").css("height", "auto");
+    $(".contentArea").css("overflow", "hidden");
+
+    if (g_print_this_page) {
+        if (confirm("是否確定列印此頁?")) {
+            window.print();
+        }
+    }
+});
