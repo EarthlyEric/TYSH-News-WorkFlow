@@ -49,8 +49,7 @@ def main(msg,id):
 
            main(msg=title.string,id=id+1)
         except:
-            configtemp = ConfigObj() 
-            pass
+            s.run
     
        
 s=sched.scheduler(time.time, time.sleep)
