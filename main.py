@@ -10,8 +10,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from configobj import ConfigObj
 
-
-
 config=ConfigObj('./config.ini')
 #Mail settings
 Mail=config['Mail']
@@ -21,6 +19,13 @@ fromacpasswd=Mail['from_passwd']
 toac=Mail['to']
 bst_id=config['id']['id']
 st_id=int(bst_id)
+bcheckupdate=config['Settings']['checkupdate']
+checkupdate=int(bcheckupdate)
+
+if checkupdate<60:
+    checkupdatemsg=f'{checkupdate} seconds'
+elif 3600>checkupdate>60:
+    checkupdatemsg=f'About {round(checkupdate/60)} minutes'
 
 
 
@@ -122,7 +127,7 @@ time.sleep(1)
 
 f.close()
 
-main(msg="",id=6923)
+main(msg="",id=st_id)
     
     
 
