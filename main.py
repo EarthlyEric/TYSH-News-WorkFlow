@@ -9,10 +9,8 @@ from bs4 import BeautifulSoup
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from configobj import ConfigObj
-from string import Template
 
 config=ConfigObj('./config.ini')
-
 #Mail settings
 Mail=config['Mail']
 
@@ -57,19 +55,16 @@ def main(msg,id):
            content["subject"]=f"【New】-{title.string}"
            content["from"]=f"{fromac}"
            content["to"]=f"{toac}"
-           template = Template(("./mail-templates/mail-template.html").read_text())
 
-           body=template.substitute({ "url": url })
-
-           #body=f"""
-           #News URL:{url}
-           #發布單位:{info_unit.get_text()}
-           #發布人:{info_person.get_text()}
-           #發布時間:{info_time.get_text()}
-           #TYSH News WorkFlow @ReLoad Dev
-           #"""
+           body=f"""
+           News URL:{url}
+           發布單位:{info_unit.get_text()}
+           發布人:{info_person.get_text()}
+           發布時間:{info_time.get_text()}
+           TYSH News WorkFlow @ReLoad Dev
+           """
            
-           content.attach(MIMEText(body, "html"))
+           content.attach(MIMEText(body))
 
            with smtplib.SMTP(host="smtp.gmail.com", port="587") as smtp:
                try:
