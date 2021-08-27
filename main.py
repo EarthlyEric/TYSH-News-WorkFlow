@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Made By EarthlyEric
-# V.0.2
+# V.0.2.fix1
 import urllib,time,sched,smtplib,keepalive,platform,logging
 from datetime import datetime
 from urllib import request
