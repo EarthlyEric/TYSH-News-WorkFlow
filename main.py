@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Made By EarthlyEric
-# V.0.2.fix1
+# V.0.3.fix2
 #
 import urllib,time,sched,smtplib,keepalive,platform,logging
 from datetime import datetime
@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from configobj import ConfigObj
+from string import Template
+from pathlib import Path
 
 config=ConfigObj('./config.ini')
 #Mail settings
@@ -56,15 +58,13 @@ def main(msg,id):
            content["from"]=f"{fromac}"
            content["to"]=f"{toac}"
 
-           body=f"""
-           News URL:{url}
-           發布單位:{info_unit.get_text()}
-           發布人:{info_person.get_text()}
-           發布時間:{info_time.get_text()}
-           TYSH News WorkFlow @ReLoad Dev
-           """
+           template = Template(Path("./mail-templates/mail-template.html").read_text(encoding="utf-8"))
+           body = template.substitute({"url": url,
+           "info_unit":info_unit,
+           "info_person":info_person,
+           "info_time":info_time})
            
-           content.attach(MIMEText(body))
+           content.attach(MIMEText(body,'html','utf-8'))
 
            with smtplib.SMTP(host="smtp.gmail.com", port="587") as smtp:
                try:
