@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
 # Made By EarthlyEric
-import urllib,time,sched,smtplib
+# V.0.1
+import urllib,time,sched,smtplib,keepalive
 from urllib import request
 from bs4 import BeautifulSoup
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from configobj import ConfigObj 
+from configobj import ConfigObj
 
 config = ConfigObj('config.ini')
 
@@ -43,21 +44,21 @@ def main(msg,id):
                   smtp.starttls()  # 建立加密傳輸
                   smtp.login(f"{fromac}", f"{fromacpasswd}")  # 登入寄件者gmail
                   smtp.send_message(content)  # 寄送郵件
-                  print("Complete!")
+                  print(f"{title.string} Complete!")
                except Exception as e:
                   print("Error message: ", e)
 
            main(msg=title.string,id=id+1)
         except:
-            s.run
+            time.sleep(600)
+            print('10 minutes later,check for Update')
+            main(msg="",id=id)
     
        
-s=sched.scheduler(time.time, time.sleep)
-s.enter(60,1,main(msg="",id=id))
 
-s.run
 
 if __name__=="__main__":
+    keepalive.keep_alive()
     main(msg="",id=6924)
 
 
