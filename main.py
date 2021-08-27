@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 # Made By EarthlyEric
-# V.0.3.fix2
+# V.0.3.fix3
 #
-import urllib,time,sched,smtplib,keepalive,platform,logging
+import time,smtplib,keepalive,platform
 from datetime import datetime
 from urllib import request
 from bs4 import BeautifulSoup
