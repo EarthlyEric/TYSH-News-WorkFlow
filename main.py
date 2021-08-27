@@ -11,7 +11,7 @@ from configobj import ConfigObj
 
 
 
-config=ConfigObj('config.ini')
+config=ConfigObj('./config.ini')
 #Mail settings
 Mail=config['Mail']
 
@@ -92,7 +92,7 @@ keepalive.keep_alive()
 
 time.sleep(5)
 
-logopath='logo\logo.txt'
+logopath='./logo/logo.txt'
 f=open(logopath, 'r')
 
 
