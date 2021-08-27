@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 # Made By EarthlyEric
-# V.0.1
-import urllib,time,sched,smtplib,keepalive,platform
+# V.0.2
+import urllib,time,sched,smtplib,keepalive,platform,logging
 from datetime import datetime
 from urllib import request
 from bs4 import BeautifulSoup
@@ -18,6 +18,8 @@ Mail=config['Mail']
 fromac=Mail['from']
 fromacpasswd=Mail['from_passwd']
 toac=Mail['to']
+bst_id=config['id']['id']
+st_id=int(bst_id)
 
 
 
@@ -41,7 +43,7 @@ def main(msg,id):
            info_time=soup.find(id='info_time')
            
            now_typea=datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
-           print(f'[{now_typea}] Get {title.string}')
+           print(f'[{now_typea}][INFO] Get {title.string}')
 
            content=MIMEMultipart()
            content["subject"]=f"【New】-{title.string}"
@@ -66,17 +68,20 @@ def main(msg,id):
                   smtp.send_message(content)  # 寄送郵件
 
                   now_typeb=datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
-                  print(f"[{now_typeb}] Send to {toac}, Complete!")
+                  print(f"[{now_typeb}][INFO] Send to {toac}, Complete!")
                except Exception as e:
                   now_typec=datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
-                  print("[{now_typec}] Error message: ", e)
+                  print(f"[{now_typec}][ERROR] Error message: ", e)
 
            main(msg=title.string,id=id+1)
+
         except:
             now_typed=datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
-            print(f'[{now_typed}]10 minutes later,Check for Update')
+            print(f'[{now_typed}][INFO] 10 minutes later,Check for Update')
             time.sleep(600)  
             main(msg="",id=id)
+
+
 
 def showinfo(tip, info):
     print("{}:{}".format(tip,info))  
@@ -116,7 +121,7 @@ time.sleep(1)
 
 f.close()
 
-main(msg="",id=6924)
+main(msg="",id=6923)
     
     
 
