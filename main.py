@@ -128,7 +128,3 @@ time.sleep(1)
 f.close()
 
 main(msg="",id=st_id)
-    
-    
-
-
