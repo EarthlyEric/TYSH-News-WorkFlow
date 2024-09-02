@@ -1,7 +1,6 @@
-import json
+from core.request import request
+from core.config import config
 
-input_post_id=6666666666666666
+decode=request.request(config.url)
 
-jsonfile = open('./save_post_id.json', 'w')
-date=dict(save_post_id=input_post_id)
-json.dump(date, jsonfile, indent=4)
+sel=decode.sec
